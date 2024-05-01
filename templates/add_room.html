@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add room</title>
+</head>
+<body>
+<h1>Add Room</h1>
+<form action="add_room" method="post">
+    {% csrf_token %}
+                 <select name="category" id="category" required>
+                    <option value="">Select Room Category</option>
+                        <option value="normal">Normal</option>
+                        <option value="standard">Standard</option>
+                        <option value="premium">Premium</option>
+                </select> <br>
+        <br> How many rooms you want to add? <input type="number" name="count" id="count" required> <br><br>
+        <input type="submit" value="Add room" style="background:green; color:white;">
+
+</form>
+
+</body>
+</html>

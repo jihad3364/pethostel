@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm booking</title>
+</head>
+<body>
+<h1>Confirm Your Booking</h1>
+
+ {% if not user.is_authenticated %}
+
+  <a href="login"> <button>Please login first</button></a>
+{% else %}
+   <h3>Your bookings details</h3>
+   <b> Check in  : {{checkin}}</b><br>
+   <b> Check out : {{checkout}}</b><br>
+   <b> Total Pet : {{petcount}}</b><br>
+   <b> Room category : {{category}}</b><br>
+   <b> Total cost : {{cost}}</b><br>
+
+<b></b>
+
+<!------------------------>
+<form action="confirm_booking" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="checkin" value="{{ checkin }}">
+    <input type="hidden" name="checkout" value="{{ checkout }}">
+    <input type="hidden" name="petcount" value="{{ petcount }}">
+    <input type="hidden" name="category" value="{{ category }}">
+    <input type="hidden" name="cost" value="{{ cost }}">
+<br>
+    <label>Select your pets:</label><br>
+    {% for pet in pets %}
+        <input type="checkbox" name="pets" value="{{ pet.id }}"> {{ pet.name }} <br>
+    {% endfor %}
+    or <a href="pet-register">Add a new pet</a> <br> <br> <br>
+
+    <input type="submit" style="background:green; color:white; " value="Confirm Booking">
+</form>
+
+
+{% endif %}
+</body>
+</html>

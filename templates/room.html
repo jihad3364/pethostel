@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Details</title>
+  <style>
+        body {
+  font-family: sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+th {
+  text-align: left;
+  background-color: #f2f2f2;
+}
+
+button{
+   padding: 10px;
+   margin:20px;
+   width:200px;
+   text-align:center;
+}
+button a{
+   color:white;
+   text-decoration:none;
+}
+
+  </style>
+
+</head>
+<body>
+  <h1>Room Details</h1>
+  <table border="2" text="white", background="black">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Capacity</th>
+        <th>Price</th>
+        <th>Total rooms</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for r in room %}
+      <tr>
+        <td>{{r.category}}</td>
+          <td>{{r.capacity}}</td>
+          <td>{{r.price}}</td>
+          <td>{{r.total_rooms}}</td>
+
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+<br><br>
+<button style="background:green;" ><a href="add_room">Add New Room</a></button>
+<button style="background:red;"><a href="remove_room">Remove room</a></button>
+<button style="background:blue;"><a href="change_price">Change Price</a></button>
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!-- my_template.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pet Form</title>
+</head>
+<body>
+    <h2>Pet Register</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

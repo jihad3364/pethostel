@@ -1,0 +1,133 @@
+<!-- form search -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawsome Pals - Book Now</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+
+</style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Book Your Pet's Stay</h2>
+
+        <form action="availability" method="post">
+            {% csrf_token %}
+                {% for msg in messages %}
+                    <i color="red">{{msg}}</i> <br><br>
+                {% endfor %}
+            <div class="form-group">
+                <label for="check-in">Check In Date:</label>
+                <input type="date" name="check_in" id="check-in" required>
+            </div>
+            <div class="form-group">
+                <label for="check-out">Check Out Date:</label>
+                <input type="date" name="check_out" id="check-out" required>
+            </div>
+            <div class="form-group">
+<!---->
+            </div>
+            <div class="form-group">
+                <label for="pet-number">Number of Pets:</label>
+                <select name="pet_number" id="pet-number" required>
+                    <option value="">Select Number</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="room-type">Room Type:</label>
+                <select name="room_type" id="room-type" required>
+                    <option value="">Select Room Type</option>
+                    <option value="normal">Normal</option>
+                    <option value="standard">Standard</option>
+                    <option value="premium">Premium</option>
+                </select>
+            </div>
+            <button type="submit">Search Availability</button>
+        </form>
+    </div>
+
+</body>
+</html>

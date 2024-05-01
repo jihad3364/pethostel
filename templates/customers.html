@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Information</title>
+  <style>
+        body {
+  font-family: sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+th {
+  text-align: left;
+  background-color: #f2f2f2;
+}
+  </style>
+
+</head>
+<body>
+  <h1>Customer Information</h1>
+  <table border="2" text="white", background="black">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Date of Birth</th>
+        <th>Address</th>
+        <th>Pets</th>
+        <th>Booking IDs</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for user in users %}
+      {% if not user.is_superuser%}
+      <tr>
+        <td>{{user.first_name}} {{user.last_name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.userprofile.phone_number}}</td>
+          <td>{{user.userprofile.birthdate}}</td>
+          <td>{{user.userprofile.address}}</td>
+
+          <td>
+            <ul>
+            {% for pet in pets%}
+              {% if pet.owner_id == user.id %}
+                <li>{{ pet.name }}</li>
+              {% endif %}
+            {% endfor %}
+            </ul>
+          </td>
+          <td>
+            {% for book in bookings%}
+              {% if book.customer_id == user.id %}
+                {{ book.id }},
+              {% endif %}
+            {% endfor %}
+          </td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+
+
+    </tbody>
+  </table>
+</body>
+</html>

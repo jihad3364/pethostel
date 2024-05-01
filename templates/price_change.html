@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>change price</title>
+</head>
+<body>
+<h1>Change Room Price</h1>
+<form action="change_price" method="post">
+    {% csrf_token %}
+                 <select name="category" id="category" required>
+                    <option value="">Select Room Category</option>
+                        <option value="normal">Normal</option>
+                        <option value="standard">Standard</option>
+                        <option value="premium">Premium</option>
+                </select> <br>
+        <br>  Set price in taka <input type="number" name="price" id="price" required> <br><br>
+        <input type="submit" value="Change Price" style="background:green; color:white;">
+
+</form>
+</body>
+</html>

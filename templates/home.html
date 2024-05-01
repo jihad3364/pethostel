@@ -1,0 +1,290 @@
+<!-- gemini code -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Hostel</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+}
+header ul { list-style-type: none;
+            text-align:left;
+}
+header section{
+    text-align: right;
+  }
+.container {
+            display: flex;
+            justify-content: space-between;
+        }
+.left-part {
+            text-align: left;
+        }
+.right-part {
+            text-align: right;
+        }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-blue {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.button-blue:hover{
+  background-color: #c0392b;
+  color: #fff;
+
+}
+
+ a{
+ text-decoration: none;
+}
+
+.buttons a {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.buttons a:hover {
+    background-color: #c0392b;
+}
+
+main {
+    padding: 50px;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+section h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.rooms .room-grid,
+.pets .pet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.room {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.room img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.room h3,
+.room p {
+    margin: 0;
+}
+
+.pets img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.services ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: ;
+}
+
+.services li {
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #0D6EFD;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin-bottom: 5px;
+}
+
+    </style>
+
+</head>
+<body>
+    <header>
+        {% if not user.is_superuser %}
+
+        <h1>Pet Hostel</h1>
+        <p>Your pet's second home!</p>
+        {% else %}
+        <h1>Manager's Dashboard</h1>
+        {% endif %}
+        <div class="buttons">
+
+            <!-- for logged out user-->
+            {% if not user.is_authenticated %}
+<!--            <a href="search">Check Availability</a>-->
+            <a href="login">Sign in</a>
+            <a href="register">Register</a>
+
+            {% else %}
+               <!--for customer-->
+                {% if not user.is_superuser %}
+<!--                   <a href="search">Check Availability</a>-->
+
+                    <a href="pet-register">Add Your Pet</a>
+                    <a href="search">Book Now</a>
+
+                <!-- for manager user-->
+                {% else %}
+                <a href="employee_list">Employees</a>
+                <a href="customers">Customers</a>
+                <a href="bookinglist">All bookings</a>
+                <a href="room">Room Details</a>
+
+                {% endif %}
+              <a href="logout">Sign Out</a>
+            {% endif %}
+
+        </div>
+        <section>
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <h4>Welcome <i>{{user.first_name}} {{user.last_name}}!</i> </h4>
+                   </h4>
+                    {% else %}
+
+                    <div class="container">
+                        <div class="left-part">
+                 {% if not pets %}
+                        <h3>You have not added any pet yet!</h3>
+                 {% else %}
+                        <h3>Your Pets:</h3>
+                        {% for pet in pets %}
+                            {{ pet.name }} <br>
+                        {% endfor %}
+                 {% endif %}
+                        </div>
+                        <div class="right-part">
+                            <h4>Welcome <i>{{ user.first_name }} {{ user.last_name }}</i> Sir!</h4>
+                            <h4>We are always at your service!</h4>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
+             </section>
+
+
+
+    </header>
+
+      {% if not user.is_superuser %}
+
+    <main>
+        <section class="rooms">
+            <h2>Room for your pet</h2>
+            <div class="room-grid">
+                <div class="room">
+                    <img src="{% static 'images/room.jpg' %}">
+                    <h3>Normal Room</h3><br>
+                      <p>Cozy and comfortable for smaller pets. Perfect for a short stay.</p> <br>
+                      <p>**Price:** ৳400/night</p>
+                </div>
+                <div class="room">
+                    <img src="{% static 'images/room.jpg' %}" >
+                    <h3>Standard Room</h3> <br>
+                      <p>Spacious and perfect for medium-sized pets. Offers a comfy bed and playtime area.</p> <br>
+                      <p>**Price:** ৳500/night</p>                </div>
+                <div class="room">
+                    <img src="{% static 'images/room.jpg' %}" >
+                    <h3>Premium Room</h3><br>
+                      <p>Luxurious and ideal for larger pets. Includes a private balcony and extra amenities.</p><br>
+                      <p>**Price:** ৳700/night</p>
+                </div>
+            </div>
+                            <a href="search"><div class="button-blue buttons">Available Rooms</div></a>
+
+
+        </section>
+
+        <section class="pets">
+            <h2>Happy Pets, Happy Stays</h2>
+            <div class="pet-grid">
+                <img src="{% static 'images/kitty.jpg' %}">
+                <img src="{% static 'images/twocats.jpg' %}">
+                <img src="{% static 'images/color.jpg' %}">
+            </div>
+
+        </section>
+        <section class="services">
+            <h2>We Offer Top-Notch Services</h2>
+            <ul>
+                <li>Spacious, clean, and comfortable rooms</li>
+                <li>Daily playtime and walks</li>
+                <li>Tender loving care from experienced staff</li>
+                <li>Personalized attention for your pet's needs</li>
+                <li>Safe and secure environment</li>
+            </ul>
+            <a href="services"><div class="button-blue buttons">Our services</div></a>
+        </section>
+    </main>
+
+    <footer>
+        <p>Contact Us:</p>
+        <p>Phone: 017000000000</p>
+        <p>Email: info@pethostel.com</p>
+        <p>Address: H12, Central Road, Dhanmondi, Dhaka</p>
+    </footer>
+            {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee List</title>
+  <style>
+    body {
+  font-family: sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+th {
+  text-align: left;
+  background-color: #f2f2f2;
+}
+.button-green{
+   background-color: green;
+   padding: 10px;
+   margin:20px;
+   width:200px;
+   text-align:center;
+}
+.button-green a{
+   color:white;
+   text-decoration:none;
+}
+
+  </style>
+</head>
+<body>
+  <h1>Employee List</h1>
+
+  <button class="button-green"><a href="employee_add">Add new employee</a></button>
+  <table>
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Role</th>
+        <th>Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for em in employees %}
+       {% if em.is_active %}
+
+            <tr>
+            <td>{{em.id}}</td>
+            <td>{{em.name}}</td>
+            <td>{{em.gender}}</td>
+            <td>{{em.email}}</td>
+            <td>{{em.phone}}</td>
+            <td>{{em.address}}</td>
+            <td>{{em.role}}</td>
+
+            <td>
+                    <form method="post" action="{% url 'remove_employee' em.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Remove Employee</button>
+                   </form>
+
+            </td>
+            </tr>
+        {% endif %}
+
+       {% endfor %}
+
+      </tbody>
+  </table>
+</body>
+</html>
